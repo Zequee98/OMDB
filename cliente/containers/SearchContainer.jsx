@@ -10,7 +10,6 @@ class SearchContainer extends React.Component {
     super(props);
     this.state = {
       buscador: null,
-      movieResult: null
     }
     this.cambiar = this.cambiar.bind(this)
     this.search = this.search.bind(this)
@@ -23,8 +22,8 @@ class SearchContainer extends React.Component {
   search(e) {
     if(e) e.preventDefault();
     axios.get('http://www.omdbapi.com/?apikey=20dac387&s=' + this.state.buscador).then((movie) => {
-      console.log(movie)
-      this.setState({movieResult: movie.data.Search})
+      // console.log(movie)
+      this.props.searchMovies(movie.data.Search)
     })
     this.props.router.push({
       pathname: '/',
@@ -64,7 +63,7 @@ componentDidMount(){
             search={this.search}
           />
           <SearchResult
-            Movie = {this.state.movieResult}
+            Movie = {this.props.movies}
           />
         </div>
       </center>
